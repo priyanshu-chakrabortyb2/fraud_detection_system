@@ -220,16 +220,16 @@
 
 ## Risk Engine
 
-* [ ] Create risk score logic
-* [ ] Create risk categories
+* [x] Create risk score logic
+* [x] Create risk categories
 
 ## Documentation
 
-* [ ] Explainability report
+* [x] Explainability report
 
 ### Phase 5 Status
 
-* [ ] Phase 5 Complete
+* [x] Phase 5 Complete
 
 ---
 

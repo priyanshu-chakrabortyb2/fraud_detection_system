@@ -13,16 +13,22 @@
 - [x] Feature Engineering
 
 ## Phase 4
-- [ ] Model Training
+- [x] Model Training
 
 ## Phase 5
-- [ ] Explainability
+- [x] Explainability
 
 ## Phase 6
 - [ ] FastAPI
 
 ## Phase 7
-- [ ] Dashboard
+- [ ] Database Integration
 
 ## Phase 8
+- [ ] Dashboard
+
+## Phase 9
+- [ ] Dockerization
+
+## Phase 10
 - [ ] Deployment
