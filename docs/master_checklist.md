@@ -205,18 +205,18 @@
 
 ## SHAP Integration
 
-* [ ] Install SHAP
-* [ ] Generate SHAP values
+* [x] Install SHAP
+* [x] Generate SHAP values
 
 ## Global Explainability
 
-* [ ] Feature importance plot
-* [ ] Summary plot
+* [x] Feature importance plot
+* [x] Summary plot
 
 ## Local Explainability
 
-* [ ] Explain individual predictions
-* [ ] Generate fraud reasons
+* [x] Explain individual predictions
+* [x] Generate fraud reasons
 
 ## Risk Engine
 
