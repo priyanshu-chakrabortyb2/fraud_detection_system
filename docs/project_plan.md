@@ -10,7 +10,7 @@
 - [x] Preprocessing
 
 ## Phase 3
-- [ ] Feature Engineering
+- [x] Feature Engineering
 
 ## Phase 4
 - [ ] Model Training
