@@ -164,40 +164,40 @@
 
 ## Baseline Models
 
-* [ ] Logistic Regression
-* [ ] Decision Tree
+* [x] Logistic Regression
+* [x] Decision Tree
 
 ## Advanced Models
 
-* [ ] Random Forest
-* [ ] XGBoost
+* [x] Random Forest
+* [x] XGBoost
 
 ## Class Imbalance Handling
 
-* [ ] Compute scale_pos_weight
-* [ ] Train weighted models
+* [x] Compute scale_pos_weight
+* [x] Train weighted models
 
 ## Evaluation
 
-* [ ] Precision
-* [ ] Recall
-* [ ] F1 Score
-* [ ] ROC-AUC
-* [ ] PR-AUC
+* [x] Precision
+* [x] Recall
+* [x] F1 Score
+* [x] ROC-AUC
+* [x] PR-AUC
 
 ## Model Comparison
 
-* [ ] Compare all models
-* [ ] Select best model
+* [x] Compare all models
+* [x] Select best model
 
 ## Export
 
-* [ ] Save trained model
-* [ ] Save evaluation report
+* [x] Save trained model
+* [x] Save evaluation report
 
 ### Phase 4 Status
 
-* [ ] Phase 4 Complete
+* [x] Phase 4 Complete
 
 ---
 
