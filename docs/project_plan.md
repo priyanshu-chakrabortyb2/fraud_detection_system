@@ -19,7 +19,7 @@
 - [x] Explainability
 
 ## Phase 6
-- [ ] FastAPI
+- [x] FastAPI
 
 ## Phase 7
 - [ ] Database Integration
