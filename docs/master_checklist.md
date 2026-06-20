@@ -94,38 +94,38 @@
 
 ## Data Cleaning
 
-* [ ] Create preprocessing script
-* [ ] Load raw dataset
-* [ ] Validate schema
+* [x] Create preprocessing script
+* [x] Load raw dataset
+* [x] Validate schema
 
 ## Feature Selection
 
-* [ ] Drop nameOrig
-* [ ] Drop nameDest
-* [ ] Drop isFlaggedFraud
+* [x] Drop nameOrig
+* [x] Drop nameDest
+* [x] Drop isFlaggedFraud
 
 ## Encoding
 
-* [ ] Encode transaction type
+* [x] Encode transaction type
 
 ## Train-Test Split
 
-* [ ] Separate features and target
-* [ ] Perform train-test split
-* [ ] Verify class distribution
+* [x] Separate features and target
+* [x] Perform train-test split
+* [x] Verify class distribution
 
 ## Data Export
 
-* [ ] Save processed train dataset
-* [ ] Save processed test dataset
+* [x] Save processed train dataset
+* [x] Save processed test dataset
 
 ## Documentation
 
-* [ ] Create preprocessing report
+* [x] Create preprocessing report
 
 ### Phase 2 Status
 
-* [ ] Phase 2 Complete
+* [x] Phase 2 Complete
 
 ---
 

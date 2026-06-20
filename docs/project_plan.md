@@ -4,10 +4,10 @@
 - [x] Setup
 
 ## Phase 1
-- [ ] EDA
+- [x]  EDA
 
 ## Phase 2
-- [ ] Preprocessing
+- [x] Preprocessing
 
 ## Phase 3
 - [ ] Feature Engineering
