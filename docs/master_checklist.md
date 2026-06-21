@@ -267,24 +267,24 @@
 
 ## Database Setup
 
-* [ ] Create SQLite database
-* [ ] Create SQLAlchemy models
+* [x] Create SQLite database
+* [x] Create SQLAlchemy models
 
 ## Tables
 
-* [ ] Users table
-* [ ] Predictions table
+* [] Users table
+* [x] Predictions table
 * [ ] Alerts table
 
 ## Logging
 
-* [ ] Store predictions
+* [x] Store predictions
 * [ ] Store timestamps
-* [ ] Store risk scores
+* [x] Store risk scores
 
 ### Phase 7 Status
 
-* [ ] Phase 7 Complete
+* [x] Phase 7 Complete
 
 ---
 

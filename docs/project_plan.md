@@ -22,7 +22,7 @@
 - [x] FastAPI
 
 ## Phase 7
-- [ ] Database Integration
+- [x] Database Integration
 
 ## Phase 8
 - [ ] Dashboard
