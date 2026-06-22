@@ -25,10 +25,10 @@
 - [x] Database Integration
 
 ## Phase 8
-- [ ] Dashboard
+- [x] Dashboard
 
 ## Phase 9
-- [ ] Dockerization
+- [x] Dockerization
 
 ## Phase 10
 - [ ] Deployment

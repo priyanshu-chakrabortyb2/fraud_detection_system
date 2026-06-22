@@ -4,8 +4,10 @@ import pandas as pd
 import plotly.express as px
 
 # ==================================
-# PAGE CONFIG
+# CONFIG
 # ==================================
+
+API_URL = "http://backend:8000"
 
 st.set_page_config(
     page_title="Fraud Detection System",
@@ -18,14 +20,19 @@ st.set_page_config(
 # ==================================
 
 try:
-    requests.get(
-        "http://127.0.0.1:8000/health",
+    response = requests.get(
+        f"{API_URL}/health",
         timeout=2
     )
 
-    st.sidebar.success(
-        "🟢 Backend Connected"
-    )
+    if response.status_code == 200:
+        st.sidebar.success(
+            "🟢 Backend Connected"
+        )
+    else:
+        st.sidebar.error(
+            "🔴 Backend Offline"
+        )
 
 except:
     st.sidebar.error(
@@ -56,56 +63,112 @@ if page == "Predict":
     st.header("Transaction Prediction")
 
     transaction_type = st.selectbox(
-    "Transaction Type",
-    ["CASH_IN", "CASH_OUT", "DEBIT", "PAYMENT", "TRANSFER"]
+        "Transaction Type",
+        [
+            "CASH_IN",
+            "CASH_OUT",
+            "DEBIT",
+            "PAYMENT",
+            "TRANSFER"
+        ]
     )
 
     amount = st.number_input(
         "Amount",
+        min_value=0.0,
+        value=1000.0
+    )
+
+    oldbalanceOrg = st.number_input(
+        "Sender Balance Before",
         min_value=0.0
     )
 
-    oldbalanceOrg = st.number_input("Sender Balance Before",min_value=0.0)
-
     newbalanceOrig = st.number_input(
-    "Sender Balance After",
-    min_value=0.0
+        "Sender Balance After",
+        min_value=0.0
     )
 
-    oldbalanceDest = st.number_input("Receiver Balance Before",min_value=0.0)
+    oldbalanceDest = st.number_input(
+        "Receiver Balance Before",
+        min_value=0.0
+    )
 
     newbalanceDest = st.number_input(
         "Receiver Balance After",
-        min_value=0.0)
+        min_value=0.0
+    )
 
     if st.button("Predict Fraud"):
 
+        type_mapping = {
+            "CASH_IN": 0,
+            "CASH_OUT": 1,
+            "DEBIT": 2,
+            "PAYMENT": 3,
+            "TRANSFER": 4
+        }
+
         sample = {
             "step": 300,
-            "type": 4,
+            "type": type_mapping[
+                transaction_type
+            ],
             "amount": amount,
-            "oldbalanceOrg": amount,
-            "newbalanceOrig": 0,
-            "oldbalanceDest": 0,
-            "newbalanceDest": amount,
-            "balance_diff_orig": amount,
-            "balance_diff_dest": -amount,
-            "amount_to_balance_ratio": 1.0,
-            "is_zero_balance_org": 0,
-            "is_zero_balance_dest": 1,
+
+            "oldbalanceOrg":
+                oldbalanceOrg,
+
+            "newbalanceOrig":
+                newbalanceOrig,
+
+            "oldbalanceDest":
+                oldbalanceDest,
+
+            "newbalanceDest":
+                newbalanceDest,
+
+            "balance_diff_orig":
+                oldbalanceOrg -
+                newbalanceOrig,
+
+            "balance_diff_dest":
+                oldbalanceDest -
+                newbalanceDest,
+
+            "amount_to_balance_ratio":
+                (
+                    amount /
+                    oldbalanceOrg
+                )
+                if oldbalanceOrg > 0
+                else 0,
+
+            "is_zero_balance_org":
+                int(
+                    oldbalanceOrg == 0
+                ),
+
+            "is_zero_balance_dest":
+                int(
+                    oldbalanceDest == 0
+                ),
+
             "hour_of_day": 12
         }
 
         try:
 
             response = requests.post(
-                "http://127.0.0.1:8000/predict",
+                f"{API_URL}/predict",
                 json=sample
             )
 
             result = response.json()
 
-            st.success("Prediction Complete")
+            st.success(
+                "Prediction Complete"
+            )
 
             col1, col2, col3 = st.columns(3)
 
@@ -127,23 +190,44 @@ if page == "Predict":
                     result["risk_score"]
                 )
 
-            st.subheader("Risk Category")
+            st.subheader(
+                "Risk Category"
+            )
 
-            if result["risk_category"] == "High Risk":
-                st.error(result["risk_category"])
+            if (
+                result["risk_category"]
+                == "High Risk"
+            ):
+                st.error(
+                    result["risk_category"]
+                )
 
-            elif result["risk_category"] == "Medium Risk":
-                st.warning(result["risk_category"])
+            elif (
+                result["risk_category"]
+                == "Medium Risk"
+            ):
+                st.warning(
+                    result["risk_category"]
+                )
 
             else:
-                st.success(result["risk_category"])
+                st.success(
+                    result["risk_category"]
+                )
 
-            st.subheader("Explanation")
+            st.subheader(
+                "Explanation"
+            )
 
-            for reason in result["reasons"]:
-                st.write(f"• {reason}")
+            for reason in result[
+                "reasons"
+            ]:
+                st.write(
+                    f"• {reason}"
+                )
 
         except Exception as e:
+
             st.error(
                 f"Prediction failed: {e}"
             )
@@ -154,22 +238,28 @@ if page == "Predict":
 
 elif page == "History":
 
-    st.header("Prediction History")
+    st.header(
+        "Prediction History"
+    )
 
     try:
 
         response = requests.get(
-            "http://127.0.0.1:8000/history"
+            f"{API_URL}/history"
         )
 
         history = response.json()
 
-        df = pd.DataFrame(history)
+        df = pd.DataFrame(
+            history
+        )
 
         if df.empty:
+
             st.warning(
                 "No history records found"
             )
+
             st.stop()
 
         df = df.sort_values(
@@ -182,12 +272,15 @@ elif page == "History":
             len(df)
         )
 
-        csv = df.to_csv(index=False)
+        csv = df.to_csv(
+            index=False
+        )
 
         st.download_button(
             label="Download History CSV",
             data=csv,
-            file_name="prediction_history.csv",
+            file_name=
+            "prediction_history.csv",
             mime="text/csv"
         )
 
@@ -197,6 +290,7 @@ elif page == "History":
         )
 
     except Exception as e:
+
         st.error(
             f"Failed to load history: {e}"
         )
@@ -207,57 +301,70 @@ elif page == "History":
 
 elif page == "Analytics":
 
-    st.header("Analytics Dashboard")
+    st.header(
+        "Analytics Dashboard"
+    )
 
     try:
 
         response = requests.get(
-            "http://127.0.0.1:8000/history"
+            f"{API_URL}/history"
         )
 
         history = response.json()
 
-        df = pd.DataFrame(history)
+        df = pd.DataFrame(
+            history
+        )
 
         if df.empty:
+
             st.warning(
                 "No analytics data available"
             )
+
             st.stop()
 
         total_predictions = len(df)
 
         fraud_count = len(
-            df[df["prediction"] == "Fraud"]
+            df[
+                df["prediction"]
+                == "Fraud"
+            ]
         )
 
         non_fraud_count = len(
-            df[df["prediction"] == "Non-Fraud"]
+            df[
+                df["prediction"]
+                == "Non-Fraud"
+            ]
         )
 
         col1, col2, col3 = st.columns(3)
 
         with col1:
+
             st.metric(
                 "Total Predictions",
                 total_predictions
             )
 
         with col2:
+
             st.metric(
                 "Fraud Predictions",
                 fraud_count
             )
 
         with col3:
+
             st.metric(
                 "Non-Fraud Predictions",
                 non_fraud_count
             )
 
-        # ==========================
         # PIE CHART
-        # ==========================
 
         prediction_counts = (
             df["prediction"]
@@ -274,7 +381,8 @@ elif page == "Analytics":
             prediction_counts,
             values="Count",
             names="Prediction",
-            title="Fraud vs Non-Fraud Predictions"
+            title=
+            "Fraud vs Non-Fraud Predictions"
         )
 
         st.plotly_chart(
@@ -282,9 +390,7 @@ elif page == "Analytics":
             use_container_width=True
         )
 
-        # ==========================
         # BAR CHART
-        # ==========================
 
         risk_counts = (
             df["risk_category"]
@@ -301,7 +407,8 @@ elif page == "Analytics":
             risk_counts,
             x="Risk Category",
             y="Count",
-            title="Risk Category Distribution"
+            title=
+            "Risk Category Distribution"
         )
 
         st.plotly_chart(
@@ -319,6 +426,7 @@ elif page == "Analytics":
         )
 
     except Exception as e:
+
         st.error(
             f"Analytics failed: {e}"
         )

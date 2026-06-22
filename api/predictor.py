@@ -22,6 +22,9 @@ def predict_transaction(data):
     df = pd.DataFrame([data])
     prediction = model.predict(df)[0]
     probability = model.predict_proba(df)[0][1]
+    print(df.T)
+    print("Prediction:", prediction)
+    print("Probability:", probability)
     shap_values = explainer.shap_values(df)
     fraud_shap = shap_values[:, :, 1]
     shap_df = pd.DataFrame(
