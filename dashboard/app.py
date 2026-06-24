@@ -8,6 +8,7 @@ import plotly.express as px
 # ==================================
 import os
 API_URL = os.getenv("API_URL","https://fraud-detection-system-1-58ws.onrender.com");
+st.sidebar.write(API_URL)
 
 st.set_page_config(
     page_title="Fraud Detection System",
