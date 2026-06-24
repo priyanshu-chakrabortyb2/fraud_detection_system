@@ -13,8 +13,8 @@ __pycache__/
 mlruns/
 
 #Model
-models/*.pkl
-models/*.joblib
+# models/*.pkl
+# models/*.joblib
 
 
 #Raw data
